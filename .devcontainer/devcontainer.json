@@ -1,0 +1,49 @@
+{
+    "name": "DocVault - Front",
+    "dockerComposeFile": [
+        "./docker-compose.dev.yml"
+    ],
+    "workspaceFolder": "/workspace",
+    "service": "frontend",
+    "runServices": [
+        "frontend"
+    ],
+    "shutdownAction": "stopCompose",
+    "forwardPorts": [
+        5173 // frontend
+    ],
+    "postStartCommand": {
+        "install": "cd /workspace/ && npm install",
+        "dev": "cd /workspace/ && npm run dev"
+    },
+	"mounts": [
+		"source=${env:SSH_AUTH_SOCK},target=/ssh-agent,type=bind,consistency=cached"
+	],
+	"containerEnv": {
+		"SSH_AUTH_SOCK": "/ssh-agent"
+	},
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "mhutchie.git-graph",
+                "GitHub.copilot",
+                "github.copilot-chat",
+                "dbaeumer.vscode-eslint",
+                "Orta.vscode-jest",
+                "esbenp.prettier-vscode"
+            ],
+            "settings": {
+                "editor.formatOnSave": true,
+                "files.autoSave": "afterDelay",
+                "files.autoSaveDelay": 1000,
+                "editor.codeActionsOnSave": {
+                    "source.organizeImports": "always"
+                },
+                "editor.rulers": [
+                    80,
+                    120
+                ]
+            }
+        }
+    }
+}
