@@ -22,6 +22,12 @@
 	"containerEnv": {
 		"SSH_AUTH_SOCK": "/ssh-agent"
 	},
+    "initializeCommand": "docker network create devcontainer-net || true",
+    // If containers are not visible, you should connect them to the network manually
+    // e.g., docker network connect devcontainer-net <container_name>
+    "runArgs": [
+        "--network=devcontainer-net"
+    ],
     "customizations": {
         "vscode": {
             "extensions": [
